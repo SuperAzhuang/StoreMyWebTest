@@ -15,45 +15,42 @@ import com.sun.jndi.toolkit.url.Uri;
  * Servlet implementation class BaseServlet
  */
 public class BaseServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+	
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.service(request, response);
-		// 获取calss字节码
-		@SuppressWarnings("rawtypes")
-		Class class1 = this.getClass();
-
-		// 获取method参数
-		System.out.println("baseservlet");
-		String methodPar = request.getParameter("method");
-		// 如果没有指定的method方法路径
-		if (methodPar == null) {
-			methodPar = "index";
-		}
-		//拿着methodPar获取方法对象
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			Method methodUrl = class1.getMethod(methodPar, HttpServletRequest.class,HttpServletResponse.class);
-//			让方法执行,返回的是一个转发路劲
+			// 1.获取子类  创建子类或者调用子类的时候 this代表的是子类对象
+			@SuppressWarnings("rawtypes")
+			Class clazz = this.getClass();
+			//System.out.println(this);
+
+			// 2.获取请求的方法
+			String m = request.getParameter("method");
+			if(m==null){
+				m="index";
+			}
+			//System.out.println(m);
+
+			// 3.获取方法对象
+			Method method = clazz.getMethod(m, HttpServletRequest.class, HttpServletResponse.class);
 			
-			String invokeUrl = (String) methodUrl.invoke(this, request,response);
+			// 4.让方法执行 返回值为请求转发的路径
+			String s=(String) method.invoke(this, request,response);//相当于 userservlet.add(request,response)
 			
 			// 5.判断s是否为空
-			if(invokeUrl!=null){
-				System.out.println("invokeUrl="+invokeUrl);
-				request.getRequestDispatcher(invokeUrl).forward(request, response);
-			      return;  
+			if(s!=null){
+				
+				request.getRequestDispatcher(s).forward(request, response);
 			}
-			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-//			request.getSession().setAttribute("mymsg", "程序奔溃啦-------------");
-//			request.getRequestDispatcher("/jsp/mymsg.jsp").forward(request, response);
-		}
-		
+			throw new RuntimeException();
+		} 
 
+	}
+	
+	
+	public String index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return null;
 	}
 }

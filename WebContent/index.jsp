@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	//跳转到indexServler界面给 首页赋商品
-	<jsp:forward page="/index"></jsp:forward>
 	
+		<jsp:forward page="/index"></jsp:forward>
+	
+	<%-- <a href="${pageContext.request.contextPath }/index">跳转到index</a> --%>
+			
 </body>
 </html>
