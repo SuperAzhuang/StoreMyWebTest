@@ -29,7 +29,7 @@
 				<div class="col-md-3" style="padding-top:20px">
 					<ol class="list-inline">
 						<li><a href="login.htm">登录</a></li>
-						<li><a href="register.htm">注册</a></li>
+						<li><a href="${pageContext.request.contextPath }/user?method=registerUi">注册</a></li>
 						<li><a href="cart.htm">购物车</a></li>
 					</ol>
 				</div>

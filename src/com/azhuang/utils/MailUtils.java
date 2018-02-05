@@ -24,14 +24,14 @@ public class MailUtils {
 		props.setProperty("mail.transport.protocol", "SMTP");
 		
 		//设置发送邮件的服务器
-		props.setProperty("mail.host", "smtp.126.com");
+		props.setProperty("mail.host", "localhost");
 		props.setProperty("mail.smtp.auth", "true");// 指定验证为true
-
+		
 		// 创建验证器
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
 				//设置发送人的帐号和密码
-				return new PasswordAuthentication("sunquan_itcast", "sunquan@itcast");
+				return new PasswordAuthentication("service", "123");
 			}
 		};
 
@@ -41,7 +41,7 @@ public class MailUtils {
 		Message message = new MimeMessage(session);
 
 		//设置发送者
-		message.setFrom(new InternetAddress("sunquan_itcast@126.com"));
+		message.setFrom(new InternetAddress("service@store.com"));
 
 		//设置发送方式与接收者
 		message.setRecipient(RecipientType.TO, new InternetAddress(email)); 
