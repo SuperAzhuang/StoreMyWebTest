@@ -67,12 +67,12 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav" id="">
-
+					<ul class="nav navbar-nav" id="menuId">
+<%-- 
 						<c:forEach items="${cList }" var="category">
 
 							<li><a href="${pageContext.request.contextPath }/">${category.cname}</a></li>
-						</c:forEach>
+						</c:forEach> --%>
 						<!-- 	<li class="active"><a href="product_list.htm">手机数码<span
 									class="sr-only">(current)</span></a></li>
 							<li><a href="#">电脑办公</a></li>
@@ -95,24 +95,31 @@
 </body>
 
 <script type="text/javascript">
+	$(function() {
+		//	$.get(url,params,function(data){},"json");
+		$
+				.get(
+						"${pageContext.request.contextPath}/category?method=findAll",
+						function(data) {
 
-$(function() {
-//	$.get(url,params,function(data){},"json");
-	$.get("${pageContext.request.contextPath}/category?method=findAll",function(data){
-		
-		alert(data);
-	//	var $ul=$("#menuId");
-	
-		var $ul = $("#menuId")
-		$(data).each(function() {
-		//	$ul.append($("<li><a href='${pageContext.request.contextPath}/product?method=findByPage&cid="+this.cid+"&currPage=1'>"+this.cname+"</a></li>"));
+						//	alert(data);
+						//	var $ul = $("#menuId");
 
-		})
-		
-	},"json")}
-);
+							var $ul = $("#menuId")
+							$(data)
+									.each(
+											function() {
+												//	$ul.append($("<li><a href='${pageContext.request.contextPath}/product?method=findByPage&cid="+this.cid+"&currPage=1'>"+this.cname+"</a></li>"));
+												$ul
+														.append("<li><a href='${pageContext.request.contextPath}/product?method=findPageBycid&cid="
+																+ this.cid
+																+ "&currPage=1'>"
+																+ this.cname
+																+ "</a></li>")
+											})
 
-
+						}, "json")
+	});
 </script>
 
 </html>
