@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class UserServlet extends BaseServlet {
 		User user = new User();
 
 		try {
-			//注册自定义转化器
+			// 注册自定义转化器
 			ConvertUtils.register(new MyConventer(), Date.class);
 			BeanUtils.populate(user, request.getParameterMap());
 			// 用户id
@@ -74,7 +75,7 @@ public class UserServlet extends BaseServlet {
 
 			} else {
 				// 设置用户激活成功
-		
+
 				userserice.active(user);
 				request.setAttribute("msg", "恭喜您，激活成功");
 			}
@@ -82,11 +83,66 @@ public class UserServlet extends BaseServlet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		}
-
 		return "/jsp/msg.jsp";
-
 	}
 
+	public String loginUI(HttpServletRequest request, HttpServletResponse response) {
+		return "jsp/login.jsp";
+	}
+
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		password = MD5Utils.md5(password);
+		System.out.println("username = " + username + "  password = " + password);
+
+		try {
+			User user = new UserServiceImpl().login(username, password);
+			//
+			if (user == null) {
+
+				String msString = "账户密码不对,请重新输入";
+				request.setAttribute("msg", msString);
+				// response.sendRedirect(request.getContextPath() + "/jsp/msg.jsp");
+				return "jsp/login.jsp";
+
+			} else {
+				// 设置session
+				if (user.getState() != 1) {
+					String msString = "您还未点击邮箱激活，请先激活！";
+					request.setAttribute("msg", msString);
+					return "jsp/login.jsp";
+				}
+				request.getSession().setAttribute("user", user);
+//				 request.getRequestDispatcher("/index").forward(request, response);
+
+				 response.sendRedirect(request.getContextPath()+"/");// /store
+				System.out.println("url = " + request.getContextPath() + "/");
+				// response.sendRedirect("/");
+
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+
+		request.getSession().invalidate();
+		try {
+//			request.getRequestDispatcher("/index").forward(request, response);
+			 response.sendRedirect(request.getContextPath());
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

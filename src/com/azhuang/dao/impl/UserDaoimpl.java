@@ -1,6 +1,9 @@
 package com.azhuang.dao.impl;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -61,6 +64,14 @@ public class UserDaoimpl implements UserDao {
 		qr.update(sql, user.getUsername(), user.getPassword(), user.getName(), user.getEmail(), user.getState(),
 				user.getUid());
 
+	}
+
+	public User login(String username, String password) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner queryRunner = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from user where username =? and password = ? limit 1";
+		
+		return queryRunner.query(sql, new BeanHandler<>(User.class),username,password);
 	}
 
 }

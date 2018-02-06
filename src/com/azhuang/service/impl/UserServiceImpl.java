@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	public User login(String username, String password) throws Exception {
+		// TODO Auto-generated method stub
+		return new UserDaoimpl().login(username,password);
+	}
+
 }

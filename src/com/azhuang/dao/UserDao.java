@@ -9,5 +9,6 @@ public interface UserDao {
 	User getUserByCode(String code) throws Exception;
 
 	void active(User user) throws Exception;
+	User login(String usrname , String password) throws Exception;
 	
 }
