@@ -97,14 +97,14 @@
 				<div class="col-md-2"
 					style="text-align: center; height: 200px; padding: 10px 0px;">
 					<a
-						href="${pageContext.request.contextPath }/product?method=getProductByPid&pid=${pro.pid}">
+						href="${pageContext.request.contextPath }/product?method=findProductByID&pid=${pro.pid}">
 						<img src="${pageContext.request.contextPath }/${pro.pimage}"
 						width="130" height="130" style="display: inline-block;">
 					</a>
 					<p>
 						<a
-							href="${pageContext.request.contextPath }/product?method=getProductByPid&pid=${pro.pid}"
-							style='color: #666'>${pro.pname}</a>
+							href="${pageContext.request.contextPath }/product?method=findProductByID&pid=${pro.pid}"
+							style='color: #666'>${fn:substring(pro.pname, 0, 8)}.....</a>
 					</p>
 					<p>
 						<font color="#E4393C" style="font-size: 16px">&yen;${pro.market_price}
@@ -156,14 +156,16 @@
 				<div class="col-md-2 yes-right-border"
 					style="text-align: center; height: 200px; padding: 10px 0px;">
 					<a
-						href="${pageContext.request.contextPath }/product?method=getProductByPid&pid=${pro.pid}">
+						href="${pageContext.request.contextPath }/product?method=findProductByID&pid=${pro.pid}">
 						<img src="${pageContext.request.contextPath}/${pro.pimage}"
 						width="130" height="130" style="display: inline-block;">
 					</a>
 					<p>
-						<a
-							href="${pageContext.request.contextPath }/product?method=getProductByPid&pid=${pro.pid}"
-							style='color: #666'>${pro.pname }</a>
+					<c:set var="string2" value="${fn:substring(pro.pname, 0, 8)}" />
+						<a 
+							href="${pageContext.request.contextPath }/product?method=findProductByID&pid=${pro.pid}"
+							style='color: #666'>${fn:substring(pro.pname, 0, 8)}.....</a>
+
 					</p>
 					<p>
 						<font color="#E4393C" style="font-size: 16px">&yen;${pro.market_price }</font>

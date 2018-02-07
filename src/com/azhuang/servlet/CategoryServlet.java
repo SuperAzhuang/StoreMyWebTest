@@ -25,7 +25,6 @@ public class CategoryServlet extends BaseServlet {
        
 	public String findAll(HttpServletRequest request,HttpServletResponse response) {
 		
-		
 		CategoryService cs = new CagegoryServiceImpl();
 		try {
 			List<Category> cList = cs.findAllCategory();
@@ -40,8 +39,9 @@ public class CategoryServlet extends BaseServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//3.写回去
+		//3.写回去findPageBycid&cid="+ this.cid+ "&currPage=1'
 		return null;
 	}
+	
 
 }

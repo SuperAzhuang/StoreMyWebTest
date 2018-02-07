@@ -1,8 +1,9 @@
 package com.azhuang.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Product {
+public class Product implements Serializable{
 //	  `pid` varchar(32) NOT NULL,
 //	  `pname` varchar(50) DEFAULT NULL,
 //	  `market_price` double DEFAULT NULL,

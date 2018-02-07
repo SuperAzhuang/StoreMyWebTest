@@ -1,6 +1,8 @@
 package com.azhuang.domain;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 	/**
 	 *  `uid` VARCHAR(32) NOT NULL,
 	  `username` VARCHAR(20) DEFAULT NULL,
