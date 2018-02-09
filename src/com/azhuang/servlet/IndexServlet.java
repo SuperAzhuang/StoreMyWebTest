@@ -33,12 +33,12 @@ public class IndexServlet extends BaseServlet {
 
 		for (int i = 0; i < hList.size(); i++) {
 
-			System.out.println("hList = " + hList.get(i));
+//			System.out.println("hList = " + hList.get(i));
 
 		}
 		for (int i = 0; i < nList.size(); i++) {
 
-			System.out.println("nList = " + nList.get(i));
+//			System.out.println("nList = " + nList.get(i));
 
 		}
 
